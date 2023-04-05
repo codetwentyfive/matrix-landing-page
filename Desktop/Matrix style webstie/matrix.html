@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Matrix Animation</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Matrix Style Website</title>
+    <style>
+      canvas {
+        display: block;
+        background-color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Set canvas dimensions
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Define word list
+      const wordList = ['love', 'dumplings', 'happiness', 'smiles', 'laughter', 'family', 'friends', 'peace'];
+
+      // Define starting position for animation
+      let x = canvas.width / 2;
+      let y = canvas.height / 2;
+
+      // Add event listener to update position based on mouse movement
+      canvas.addEventListener('mousemove', updatePosition);
+
+      function updatePosition(event) {
+        x = event.clientX;
+        y = event.clientY;
+      }
+
+      function draw() {
+        // Clear canvas
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw words
+        ctx.fillStyle = '#0F0';
+        ctx.font = '20px Arial';
+        for(let i = 0; i < wordList.length; i++) {
+          const word = wordList[i];
+          const xPos = x + i * 20;
+          const yPos = y + i * 20;
+          ctx.fillText(word, xPos, yPos);
+        }
+
+        // Request animation frame
+        requestAnimationFrame(draw);
+      }
+
+      // Start animation
+      draw();
+    </script>
+  </body>
 </html>
